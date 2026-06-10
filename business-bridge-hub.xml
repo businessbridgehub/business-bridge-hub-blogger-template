@@ -4,7 +4,7 @@
   Author: Business Bridge Hub
   Author URI: https://businessbridgehub.com/
   Developer: Jahid Shah
-  Version: 1.0.1
+  Version: 1.0.2
   Description: A production-grade, fully responsive Blogger XML theme for Business Bridge Hub. SaaS-style UI, widget-driven architecture, PageSpeed 95+ performance, full SEO optimization, and mobile-first touch-optimized UX. Zero external dependencies, inline CSS, off-canvas nav, card-based blog grid, modular sidebar, and comprehensive footer.
   License: MIT
   Copyright: © 2026 Business Bridge Hub. All rights reserved.
@@ -14,7 +14,17 @@
 <head>
     <meta charset='utf-8'/>
     <meta content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1' name='viewport'/>
-    <title><data:blog.pageName/> | <data:blog.title/></title>
+    <!-- SEO-Optimized Title Tag Handler -->
+    <b:if cond='data:blog.pageType == &quot;item&quot;'>
+        <!-- Displays: "Exact Post Title | Business Bridge Hub" -->
+        <title><data:blog.pageName/> | <data:blog.title/></title>
+    <b:elif cond='data:blog.pageType == &quot;static_page&quot;'/>
+        <!-- Displays: "About Us | Business Bridge Hub" -->
+        <title><data:blog.pageName/> | <data:blog.title/></title>
+    <b:else/>
+        <!-- Homepage / Index Views: Displays Your Brand Name and SEO Core Keyword Tagline -->
+        <title><data:blog.title/> | WordPress Development, Security &amp; Technical SEO Insights</title>
+    </b:if>
     
     <b:if cond='data:blog.pageType == &quot;index&quot;'>
         <meta expr:content='data:blog.metaDescription ? data:blog.metaDescription : data:blog.title' name='description'/>
@@ -22,7 +32,9 @@
         <meta expr:content='data:blog.metaDescription ? data:blog.metaDescription : data:blog.pageName' name='description'/>
     </b:if>
     <meta content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' name='robots'/>
-    <link expr:href='data:blog.homepageUrl.canonical' rel='canonical'/>
+    
+    <!-- Dynamic Self-Referencing Canonical Tag: Handles Home and Posts perfectly -->
+    <link expr:href='data:blog.url.canonical' rel='canonical'/>
     
     <meta expr:content='data:blog.pageName ? data:blog.pageName : data:blog.title' property='og:title'/>
     <meta expr:content='data:blog.url.canonical' property='og:url'/>
@@ -236,7 +248,6 @@
         .latest-post-class h2, h2.featured-section-title, .blog-categories .section-header h2, .popular-resources .section-header h2 {
             font-size: 25px;
             color: #ffffff;
-            margin-bottom: 15px;
             font-weight: 700;
             position: relative;
             margin-bottom: 40px;
@@ -897,6 +908,10 @@
                     <b:section id='hero-left' class='hero-column-widget' showaddelement='yes'>
                         <b:widget id='Text105' locked='false' title='Hero Main Heading' type='Text' version='2'>
                             <b:includable id='main'>
+                                <!-- The widget title editable from Layout -->
+                                <b:if cond='data:title != &quot;&quot;'>
+                                    <span class='title'><data:title/></span>
+                                </b:if>
                                 <div class='widget-content'>
                                     <b:if cond='data:content != &quot;&quot;'>
                                         <data:content/>
@@ -1168,17 +1183,17 @@
         <!-- ================= SECTION 2: BLOG CTA CALLOUT ================= -->
         <section class='blog-cta'>
             <div class='container'>
-                <b:section id='homepage-cta-zone' maxwidgets='1' showaddelement='yes'>
+                <b:section class='cta-box' id='homepage-cta-zone' maxwidgets='1' showaddelement='yes'>
                     <b:widget id='Text106' locked='false' title='Homepage Newsletter CTA' type='Text' version='2'>
                         <b:includable id='main'>
-                            <div class='cta-box'>
+                            <div>
                                 <!-- Standard Fallback Setup if text field is empty in layout screen -->
                                 <b:if cond='data:content and data:content != &quot;&quot; and data:content != &quot; &quot;'>
                                     <b:eval expr='data:content text'/>
                                 <b:else/>
                                     <h2>Stay Updated</h2>
                                     <p>Get practical WordPress, security, and technical SEO insights delivered as new resources are published.</p>
-                                    <a class='btn btn-primary cta-action-btn' href='/p/contact.html'>Join Our Newsletter</a>
+                                    <a class='btn btn-primary cta-action-btn' href='/p/newsletter.html'>Join Our Newsletter</a>
                                 </b:if>
                             </div>
                         </b:includable>
@@ -1228,8 +1243,8 @@
                     <b:widget id='Text102' locked='false' title='Footer Attribution' type='Text' version='2'>
                         <b:includable id='main'>
                             <div class='widget-content'>
-                                <b:if cond='data:content != &quot;&quot;'>
-                                    <p><b:eval expr='data:content text '/></p>
+                                <b:if cond='data:content and data:content != &quot;&quot;'>
+                                    <p><data:content/></p>
                                 <b:else/>
                                     <p>&amp;copy; <span id='year-container'></span> <data:blog.title/>. Powered by Blogger.</p>
                                 </b:if>
@@ -1238,6 +1253,7 @@
                     </b:widget>
                 </b:section>
             </div>
+
             <div class='footer-social'>
                 <b:section id='footer-social-links' maxwidgets='1' showaddelement='yes'>
                     <b:widget id='LinkList2' locked='false' title='Social Profile Links' type='LinkList' version='2'>
