@@ -4,7 +4,7 @@
   Author: Business Bridge Hub
   Author URI: https://businessbridgehub.com/
   Developer: Jahid Shah
-  Version: 1.0.0
+  Version: 1.0.1
   Description: A production-grade, fully responsive Blogger XML theme for Business Bridge Hub. SaaS-style UI, widget-driven architecture, PageSpeed 95+ performance, full SEO optimization, and mobile-first touch-optimized UX. Zero external dependencies, inline CSS, off-canvas nav, card-based blog grid, modular sidebar, and comprehensive footer.
   License: MIT
   Copyright: © 2026 Business Bridge Hub. All rights reserved.
@@ -233,16 +233,16 @@
         .latest-post-class {
             padding: 40px 0;
         }
-        .latest-post-class h2 {
-            font-size: 22px;
+        .latest-post-class h2, h2.featured-section-title, .blog-categories .section-header h2, .popular-resources .section-header h2 {
+            font-size: 25px;
             color: #ffffff;
             margin-bottom: 15px;
-            font-weight: 600;
+            font-weight: 700;
             position: relative;
-            padding-bottom: 8px;
+            margin-bottom: 40px;
             text-align: left;
         }
-        .latest-post-class h2::after {
+        .latest-post-class h2::after, h2.featured-section-title::after, .blog-categories .section-header h2::after, .popular-resources .section-header h2::after {
             content: '';
             position: absolute;
             left: 0;
@@ -263,6 +263,31 @@
         .post-details { padding: 20px; }
         .post-title { font-size: 20px; margin-bottom: 10px; color: var(--text-color); font-weight: 700; }
         .post-meta { font-size: 13px; color: #cfcfcf; margin-bottom: 12px; }
+
+        /* Single Post */
+        .post-body.entry-content p {
+            text-align: justify;
+        }
+        .post-body.entry-content h2 {
+            padding: 25px 0 10px 0 !important;
+            font-size: 2rem !important;
+        }
+        .post-body.entry-content h3 {
+            font-size: 1.5rem;
+            padding-bottom: 10px;
+        }
+        .post-body.entry-content h4 {
+            font-size: 1.3rem;
+            padding-bottom: 10px;
+        }
+        .post-body.entry-content h4 {
+            font-size: 1.1rem;
+            padding-bottom: 10px;
+        }
+        .post-body.entry-content h5, .post-body.entry-content h4 {
+            font-size: 1rem;
+            padding-bottom: 10px;
+        }
 
         /* Sidebar Elements Styling */
         aside .widget {
@@ -449,13 +474,6 @@
         .featured-section-wrapper {
             background: var(--section-one-bg);
         }
-        .featured-section-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--text-color);
-            margin-bottom: 20px;
-            position: relative;
-        }
         .featured-flex-layout {
             display: flex;
             background: var(--card-bg);
@@ -531,12 +549,6 @@
         .blog-categories .container {
             width: 100%;
         }
-        .blog-categories .section-header h2 {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--text-color);
-            margin-bottom: 20px;
-        }
         .category-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -581,12 +593,6 @@
         /* ================= Popular Resources Area Styling ================= */
         .popular-resources {
             background: var(--section-two-bg);
-        }
-        .popular-resources .section-header h2 {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--text-color);
-            margin-bottom: 20px;
         }
         .resource-grid {
             display: grid;
@@ -692,7 +698,7 @@
         .footer-widgets .widget {
             margin-bottom: 20px;
         }
-        .footer-widgets h2 {
+        .footer-widgets h3 {
             font-size: 18px;
             color: #ffffff;
             margin-bottom: 15px;
@@ -701,7 +707,7 @@
             padding-bottom: 8px;
             text-align: left;
         }
-        .footer-widgets h2::after {
+        .footer-widgets h3::after {
             content: '';
             position: absolute;
             left: 0;
@@ -714,6 +720,7 @@
             font-size: 14px;
             line-height: 1.7;
             color: #b3bac5;
+            text-align: justify;
         }
         .footer-widgets ul {
             list-style: none;
@@ -740,12 +747,29 @@
             gap: 40px;
         }
         .footer-col {
-            flex: 1; /* Automatically forces all 3 columns to take up equal width fractions */
+            flex: 1;
             min-width: 0;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 32px 28px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.35s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .footer-widgets.section ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .footer-widgets.section ul li a {
+            padding: 5px;
+            box-shadow: 0px 0px 3px #ccc;
+            border-radius: 5px;
         }
         
         /* Social Icons Footer Widget Mapping */
-        .footer-social a { color: var(--text-color); margin-left: 15px; font-size: 16px; border-radius: 50%; box-shadow: 0px 0 3px; padding: 6px 10px; border: 1px solid transparent; }
+        .footer-social a { color: var(--text-color); margin-left: 15px; font-size: 16px; border-radius: 8px; padding: 6px 10px; border: 1px solid transparent; }
         .footer-social a:hover { color: var(--text-hover-color);border: 1px solid var(--text-color); }
         .credit-footer { display: flex; justify-content: space-between; padding: 20px 10px; }
         /* Responsive Breakpoints Handling Mobile View Ports */
@@ -1003,7 +1027,7 @@
                                         <a expr:href='data:post.url'><img class='post-thumb' expr:src='data:post.featuredImage'/></a>
                                     </b:if>
                                     <div class='post-details'>
-                                        <div class='post-meta'><data:post.date/> | By <data:post.author.name/></div>
+                                        <div class='post-meta'><data:post.date/> | By <strong><data:post.author.name/></strong></div>
                                         <h2 class='post-title'><a expr:href='data:post.url'><data:post.title/></a></h2>
                                         <p><b:eval expr='data:post.snippet snippet {length: 120, links: false, linebreaks: false, paragraphs: false}'/></p>
                                     </div>
@@ -1038,11 +1062,11 @@
                             <b:includable id='main' var='this'>
                                 <b:loop values='data:posts' var='post'>
                                     <article class='post-card' style='padding: 30px;'>
-                                        <h1 class='post-title' style='font-size: 32px;'><data:post.title/></h1>
-                                        <div class='post-meta'><data:post.date/> | Written By <data:post.author.name/></div>
+                                        <h1 class='post-title' style='font-size: 35px;'><data:post.title/></h1>
+                                        <div class='post-meta'><data:post.date/> | Written By <strong><data:post.author.name/></strong></div>
                                         <hr style='border: 0; border-top: 1px solid var(--border-color); margin: 20px 0;'/>
                                         
-                                        <div class='post-body entry-content'>
+                                        <div class='post-body entry-content single-article'>
                                             <data:post.body/>
                                         </div>
 
@@ -1175,7 +1199,7 @@
                         <b:widget id='Text101' locked='false' title='About Our Hub' type='Text' version='2'>
                             <b:includable id='main'>
                                 <b:if cond='data:title != &quot;&quot;'>
-                                    <h2><data:title/></h2>
+                                    <h3><data:title/></h3>
                                 </b:if>
                                 <div class='widget-content'>
                                     <data:content/>
@@ -1225,6 +1249,8 @@
                                     <b:if cond='data:link.name == &quot;LinkedIn&quot;'><i class='fa-brands fa-linkedin-in'></i></b:if>
                                     <b:if cond='data:link.name == &quot;Instagram&quot;'><i class='fa-brands fa-instagram'></i></b:if>
                                     <b:if cond='data:link.name == &quot;YouTube&quot;'><i class='fa-brands fa-youtube'></i></b:if>
+                                    <b:if cond='data:link.name == &quot;Medium&quot;'><i class="fa-brands fa-medium"></i></b:if>
+                                    <b:if cond='data:link.name == &quot;WhatsApp&quot;'><i class="fa-brands fa-whatsapp"></i></b:if>
                                 </a>
                             </b:loop>
                         </b:includable>
