@@ -1,0 +1,1280 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  Theme: Business Bridge Hub
+  Author: Business Bridge Hub
+  Author URI: https://businessbridgehub.com/
+  Developer: Jahid Shah
+  Version: 1.0.0
+  Description: A production-grade, fully responsive Blogger XML theme for Business Bridge Hub. SaaS-style UI, widget-driven architecture, PageSpeed 95+ performance, full SEO optimization, and mobile-first touch-optimized UX. Zero external dependencies, inline CSS, off-canvas nav, card-based blog grid, modular sidebar, and comprehensive footer.
+  License: MIT
+  Copyright: © 2026 Business Bridge Hub. All rights reserved.
+-->
+<!DOCTYPE html>
+<html b:css='false' b:defaultwidgetversion='2' b:layoutsversion='3' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale.language' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+    <meta charset='utf-8'/>
+    <meta content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1' name='viewport'/>
+    <title><data:blog.pageName/> | <data:blog.title/></title>
+    
+    <b:if cond='data:blog.pageType == &quot;index&quot;'>
+        <meta expr:content='data:blog.metaDescription ? data:blog.metaDescription : data:blog.title' name='description'/>
+    <b:else/>
+        <meta expr:content='data:blog.metaDescription ? data:blog.metaDescription : data:blog.pageName' name='description'/>
+    </b:if>
+    <meta content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' name='robots'/>
+    <link expr:href='data:blog.homepageUrl.canonical' rel='canonical'/>
+    
+    <meta expr:content='data:blog.pageName ? data:blog.pageName : data:blog.title' property='og:title'/>
+    <meta expr:content='data:blog.url.canonical' property='og:url'/>
+    <meta expr:content='data:blog.metaDescription ? data:blog.metaDescription : data:blog.title' property='og:description'/>
+    <meta content='website' property='og:type'/>
+    <b:if cond='data:blog.postImageUrl'>
+        <meta expr:content='data:blog.postImageUrl' property='og:image'/>
+    </b:if>
+    
+    <meta content='summary_large_image' name='twitter:card'/>
+    <meta expr:content='data:blog.pageName ? data:blog.pageName : data:blog.title' name='twitter:title'/>
+    <meta expr:content='data:blog.metaDescription ? data:blog.metaDescription : data:blog.title' name='twitter:description'/>
+
+    <meta content='Global' name='distribution'/>
+    <meta content='General' name='rating'/>
+    <meta content='Daily' name='revisit-after'/>
+
+    <script type='application/ld+json'>
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "<data:blog.homepageUrl.canonical/>#website",
+          "url": "<data:blog.homepageUrl.canonical/>",
+          "name": "<data:blog.title/>",
+          "description": "<data:blog.metaDescription/>",
+          "potentialAction": [{
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "<data:blog.homepageUrl.canonical/>search?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }]
+        },
+        <b:if cond='data:blog.pageType == &quot;item&quot;'>
+        {
+          "@type": "BlogPosting",
+          "@id": "<data:blog.url.canonical/>#blogposting",
+          "mainEntityOfPage": "<data:blog.url.canonical/>",
+          "headline": "<data:blog.pageName/>",
+          "description": "<data:blog.metaDescription/>",
+          <b:if cond='data:blog.postImageUrl'>"image": "<data:blog.postImageUrl/>",</b:if>
+          "datePublished": "<data:blog.postJsonLD.datePublished/>",
+          "dateModified": "<data:blog.postJsonLD.dateModified/>",
+          "author": {
+            "@type": "Person",
+            "name": "<data:blog.postJsonLD.author.name/>"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "<data:blog.title/>",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "<data:blog.blogspotFaviconUrl/>"
+            }
+          }
+        }
+        </b:if>
+      ]
+    }
+    </script>
+
+    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap' rel='stylesheet'/>
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css' rel='stylesheet'/>
+
+    <b:skin><![CDATA[
+        /* CSS Reset & Variables */
+        :root {
+            --primary-color: #0052cc;
+            --secondary-color: #172b4d;
+            --text-color: #333333;
+            --text-color: #f4f5f7;
+            --text-hover-color: #97c3e9;
+			--bg-body: #080d1a;
+            --card-bg: #ffffff;
+			--nav-bg: rgb(8 13 26 / 75%);
+            --border-color: rgba(255,255,255,0.06);
+            --max-width: 1200px;
+            --section-one-bg: linear-gradient(180deg, rgba(47,128,237,0.06) 0%, transparent 40%);
+            --section-two-bg: linear-gradient(180deg, rgba(47,128,237,0.04) 0%, transparent 60%) !important;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color: var(--text-color); line-height: 1.6; }
+        a { color: var(--primary-color); text-decoration: none; transition: color 0.3s ease; }
+        a:hover { color: var(--text-color); }
+        img { max-width: 100%; height: auto; }
+
+        .popular-resources, .blog-categories, .featured-section-wrapper, .main-wrapper, .hero-wrapper, .blog-cta {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 60px 95px;
+        }
+        /* Sticky Header Navigation */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--nav-bg);
+            border-bottom: 1px solid var(--border-color);
+            1px solid rgba(255,255,255,0.06)
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .nav-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+        }
+        .logo h1 { font-size: 24px; font-weight: 700; color: var(--text-color); }
+        .logo img { max-height: 80px; }
+        
+        .nav-menu ul { display: flex; list-style: none; gap: 20px; }
+        .nav-menu ul li a { font-weight: 500; color: var(--text-color); font-size: 15px; }
+        .nav-menu ul li a:hover { color: var(--text-hover-color); }
+
+        /* Mobile Hamburger Toggle */
+        .menu-toggle { display: none; font-size: 22px; cursor: pointer; color: var(--text-color); }
+        
+        /* Hero Section */
+        .hero-wrapper {
+            background: var(--section-one-bg);
+        }
+        .hero-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+        }
+        .hero-col {
+            flex: 1;
+            min-width: 0;
+        }
+        /* Layout formatting fixes within hero containers */
+        .hero-column-widget .widget {
+            margin-bottom: 0;
+        }
+        .hero-col img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Layout Main Grid Structural Wrapper */
+        .main-wrapper {
+            background: var(--section-two-bg);
+        }
+        .hero-container .widget-content h1{font-size: 42px; font-weight: 700; color: var(--text-color); line-height: 1.2; margin-bottom: 15px;}
+        .widget-content p {font-size: 16px; color: var(--text-color); margin-bottom: 30px;}
+        .widget-content a { box-shadow: 0 0 3px #ccc; padding: 10px; border-radius: 5px; color: var(--text-color); border:1px solid transparent; }
+        .widget-content a:hover { border: 1px solid var(--text-color); }
+        .widget-content li a { box-shadow: none; }
+        
+        /* Homepage Grid */
+        .homepage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        /* Pagination Links Formatting Layout */
+        .pagination {
+            max-width: var(--max-width);
+            margin: 40px auto 20px auto;
+            display: flex;
+            flex-direction: row-reverse; /* Places Older Posts cleanly on the right side */
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            clear: both;
+        }
+        .newer-older-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--secondary-color);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: all 0.2s ease-in-out;
+        }
+        .newer-older-link:hover {
+            background: var(--primary-color);
+            color: #ffffff;
+            border-color: var(--primary-color);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,82,204,0.15);
+        }
+        /* Layout fix if only one item exists to keep alignment correct */
+        .older-link { margin-left: auto; }
+
+        /* Single Post Style Grid (Content + Sidebar) */
+        .inner-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+        .latest-post-class {
+            padding: 40px 0;
+        }
+        .latest-post-class h2 {
+            font-size: 22px;
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 8px;
+            text-align: left;
+        }
+        .latest-post-class h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 35px;
+            height: 2px;
+            background: var(--text-hover-color);
+        }
+        /* Post Card Designs */
+        .post-card {
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            margin-bottom: 25px;
+        }
+        .post-thumb { width: 100%; height: 220px; object-fit: cover; }
+        .post-details { padding: 20px; }
+        .post-title { font-size: 20px; margin-bottom: 10px; color: var(--text-color); font-weight: 700; }
+        .post-meta { font-size: 13px; color: #cfcfcf; margin-bottom: 12px; }
+
+        /* Sidebar Elements Styling */
+        aside .widget {
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+        }
+        aside h2 { font-size: 18px; margin-bottom: 15px; border-bottom: 2px solid var(--primary-color); padding-bottom: 5px; color: var(--text-color); }
+        aside.sidebar-area a { color: var(--text-color); }
+        aside.sidebar-area a:hover { color: var(--text-hover-color); text-decoration: underline; }
+        aside.sidebar-area li { padding-left: 10px; list-style-type: none; }
+
+        /* Post Share Block Styling */
+        .post-share-buttons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 30px 0;
+            padding: 15px 0;
+            border-top: 1px dashed var(--border-color);
+            border-bottom: 1px dashed var(--border-color);
+        }
+        .share-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-hover-color);
+        }
+        .post-share-buttons a {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--bg-color);
+            color: var(--text-hover-color);
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        .post-share-buttons a:hover {
+            color: #fff;
+            transform: translateY(-2px);
+        }
+        .post-share-buttons a[title*="Facebook"]:hover { background: #1877f2; }
+        .post-share-buttons a[title*="Twitter"]:hover { background: #000000; }
+        .post-share-buttons a[title*="LinkedIn"]:hover { background: #0077b5; }
+        .post-share-buttons a[title*="WhatsApp"]:hover { background: #25d366; }
+        /* Base styling for the anchor button */
+        .xclass {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #f4f5f7; /* Light grey background default */
+            border-radius: 50%;        /* Makes it a perfect circle */
+            color: #172b4d;            /* Icon color default (Dark Grey) */
+            transition: all 0.2s ease-in-out; /* Smooth transition for hover effects */
+            text-decoration: none;
+        }
+
+        /* Styling the SVG icon inside the anchor */
+        .xclass svg {
+            width: 16px;   /* Controls the size of the X icon */
+            height: 16px;
+            fill: currentColor; /* Inherits the 'color' property from the parent .xclass */
+        }
+
+        /* Hover effects for a premium feel */
+        .xclass:hover {
+            background-color: #000000; /* Changes background to Black on hover (X/Twitter Branding) */
+            color: #ffffff;            /* Changes icon color to White on hover */
+            transform: translateY(-3px); /* Subtle lift effect */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Soft drop shadow on hover */
+        }
+
+        /* Related Posts Wrapper Styling */
+        .related-posts-wrapper {
+            margin-top: 40px;
+        }
+        .related-posts-wrapper h3 {
+            font-size: 20px;
+            color: var(--text-color);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .related-card {
+            background: var(--bg-color);
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        .related-img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+        }
+        .related-info {
+            padding: 12px;
+        }
+        .related-info h4 {
+            font-size: 14px;
+            line-height: 1.4;
+            font-weight: 600;
+            margin: 0;
+        }
+        .related-info h4 a {
+            color: var(--secondary-color);
+        }
+        .related-info h4 a:hover {
+            color: var(--primary-color);
+        }
+        .related-loading { font-size: 14px; color: #777; font-style: italic; }
+
+        /*Search Box toggle*/
+        /* Search Item & Toggle Styling */
+        .search-item-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        #search-toggle-btn {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 16px;
+            cursor: pointer;
+            padding: 5px;
+            transition: color 0.3s;
+        }
+        #search-toggle-btn:hover {
+            color: var(--text-hover-color);
+        }
+        .search-expand-box {
+            display: none;
+            position: absolute;
+            top: 130%;
+            right: 0;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 1010;
+            min-width: 250px;
+        }
+        .search-expand-box.open {
+            display: block;
+        }
+        .search-expand-box form {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .search-expand-box input {
+            width: 100%;
+            padding: 6px 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+        }
+        .search-expand-box input:focus {
+            border-color: var(--primary-color);
+        }
+        .search-expand-box button {
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Featured Post Block Component Layout styling */
+        .featured-section-wrapper {
+            background: var(--section-one-bg);
+        }
+        .featured-section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .featured-flex-layout {
+            display: flex;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            gap: 30px;
+            align-items: center;
+        }
+        .featured-image-holder {
+            flex: 1.2;
+            min-width: 0;
+            height: 380px;
+        }
+        .featured-image-holder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+        .featured-flex-layout:hover .featured-image-holder img {
+            transform: scale(1.02);
+        }
+        .featured-text-holder {
+            flex: 1;
+            padding: 40px 40px 40px 10px;
+            min-width: 0;
+        }
+        .featured-post-title {
+            font-size: 28px;
+            line-height: 1.3;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .featured-post-title a {
+            color: var(--secondary-color);
+        }
+        .featured-post-title a:hover {
+            color: var(--primary-color);
+        }
+        .featured-post-summary {
+            font-size: 15px;
+            color: #555c66;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .featured-readmore-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary-color);
+            color: #ffffff !important;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.2s ease;
+        }
+        .featured-readmore-btn:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Browse Topics Grid Component Styles */
+        .blog-categories {
+            background: var(--section-two-bg);
+        }
+        .blog-categories .container {
+            width: 100%;
+        }
+        .blog-categories .section-header h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 20px;
+        }
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+        }
+        .category-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px 15px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.01);
+            transition: all 0.25s ease-in-out;
+        }
+        .category-card i {
+            font-size: 24px;
+            color: var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+        .category-card span {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--secondary-color);
+            line-height: 1.3;
+        }
+        
+        /* Interactive Hover States */
+        .category-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,82,204,0.08);
+        }
+        .category-card:hover i {
+            transform: scale(1.1);
+        }
+
+        /* ================= Popular Resources Area Styling ================= */
+        .popular-resources {
+            background: var(--section-two-bg);
+        }
+        .popular-resources .section-header h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 20px;
+        }
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+        .resource-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            text-decoration: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+            transition: all 0.2s ease-in-out;
+        }
+        .resource-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--secondary-color);
+            line-height: 1.4;
+        }
+        .resource-icon {
+            font-size: 12px;
+            color: #a0aec0;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+        .resource-card:hover {
+            border-color: var(--primary-color);
+            background-color: #fafbfc;
+            transform: translateY(-2px);
+        }
+        .resource-card:hover .resource-text {
+            color: var(--primary-color);
+        }
+        .resource-card:hover .resource-icon {
+            color: var(--primary-color);
+            transform: translate(2px, -2px);
+        }
+
+        /* ================= Blog CTA Block Styling ================= */
+        .blog-cta {
+            background: var(--section-one-bg);
+        }
+        .cta-box {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, #0f1c30 100%);
+            border-radius: 12px;
+            padding: 50px 40px;
+            text-align: center;
+            color: #ffffff;
+            box-shadow: 0 4px 20px rgba(23, 43, 77, 0.1);
+        }
+        .cta-box h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+        .cta-box p {
+            font-size: 16px;
+            color: #b3bac5;
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+            line-height: 1.6;
+        }
+        .cta-action-btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: #ffffff !important;
+            padding: 12px 32px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 82, 204, 0.2);
+            transition: all 0.2s ease;
+        }
+        .cta-action-btn:hover {
+            background: #0065ff;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(0, 82, 204, 0.3);
+        }
+
+        /* Footer Elements */
+        footer {
+            background: rgb(0 0 0 / 30%);
+            color: #fff;
+            padding: 30px 80px;
+            margin-top: 50px;
+            text-align: center;
+        }
+        footer a { color: #fff; opacity: 0.8; }
+
+        /* Top Footer Custom Layout Area Styling */
+        .top-footer {
+            padding: 40px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        /* Widget Typography Rules inside Footer */
+        .footer-widgets .widget {
+            margin-bottom: 20px;
+        }
+        .footer-widgets h2 {
+            font-size: 18px;
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 8px;
+            text-align: left;
+        }
+        .footer-widgets h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 35px;
+            height: 2px;
+            background: var(--text-hover-color);
+        }
+        .footer-widgets .widget-content {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #b3bac5;
+        }
+        .footer-widgets ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-widgets ul li {
+            margin-bottom: 10px;
+        }
+        .footer-widgets ul li a {
+            color: #b3bac5;
+            transition: color 0.2s ease;
+        }
+        .footer-widgets ul li a:hover {
+            color: #ffffff;
+        }
+
+        .footer-columns-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        .footer-col {
+            flex: 1; /* Automatically forces all 3 columns to take up equal width fractions */
+            min-width: 0;
+        }
+        
+        /* Social Icons Footer Widget Mapping */
+        .footer-social a { color: var(--text-color); margin-left: 15px; font-size: 16px; border-radius: 50%; box-shadow: 0px 0 3px; padding: 6px 10px; border: 1px solid transparent; }
+        .footer-social a:hover { color: var(--text-hover-color);border: 1px solid var(--text-color); }
+        .credit-footer { display: flex; justify-content: space-between; padding: 20px 10px; }
+        /* Responsive Breakpoints Handling Mobile View Ports */
+        @media (max-width: 992px) {
+            .inner-grid { grid-template-columns: 1fr; }
+            .featured-flex-layout {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+            }
+            .featured-image-holder {
+                height: 250px;
+                width: 100%;
+            }
+            .featured-text-holder {
+                padding: 25px;
+            }
+            .featured-post-title {
+                font-size: 22px;
+            }
+        }
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .nav-menu { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--card-bg); flex-direction: column; padding: 20px; border-bottom: 1px solid var(--border-color); box-shadow: 0 5px 10px rgba(0,0,0,0.05); }
+            .nav-menu.active { display: block; background: #020816; height: 100dvh; }
+            .nav-menu ul { flex-direction: column; gap: 15px; }
+            .hero-wrapper { padding: 40px 20px; }
+            .hero-container { flex-direction: column; text-align: center; gap: 35px; }
+            .homepage-grid { grid-template-columns: 1fr; }
+            .main-wrapper, .popular-resources, .blog-categories, .featured-section-wrapper, .hero-wrapper, .blog-cta {padding: 60px 20px; }
+            .related-grid { grid-template-columns: 1fr; gap: 15px; }
+            .search-item-container { width: 100%; margin-top: 10px; flex-direction: column; align-items: flex-start; }
+            #search-toggle-btn { display: none; }
+            .search-expand-box { display: block; position: static; box-shadow: none; border: none; padding: 0; width: 100%; }
+            .resource-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .cta-box {
+                padding: 35px 20px;
+            }
+            .cta-box h2 {
+                font-size: 24px;
+            }
+            .cta-box p {
+                font-size: 14px;
+            }
+            footer {padding: 30px 16px;}
+            .credit-footer { flex-direction: column; gap: 20px; }
+            .footer-columns-container { flex-direction: column; gap: 30px; }
+        }
+        @media (max-width: 576px) {
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr); /* Forms a tight clean 2x3 block grid layout on mobile screens */
+                gap: 12px;
+            }
+            .category-card {
+                padding: 18px 10px;
+            }
+            .category-card span {
+                font-size: 13px;
+            }
+        }
+    ]]></b:skin>
+</head>
+<body>
+
+    <header>
+        <div class='nav-container'>
+            <div class='logo'>
+                <b:section id='header-logo' maxwidgets='1' showaddelement='yes'>
+                    <b:widget id='Header1' locked='false' title='Blog Header Logo' type='Header' version='2'>
+                        <b:widget-settings>
+                            <b:widget-setting name='displayUrl'/>
+                            <b:widget-setting name='displayHeight'/>
+                            <b:widget-setting name='displayWidth'/>
+                        </b:widget-settings>
+                        <b:includable id='main'>
+                            <b:if cond='data:image'>
+                                <a expr:href='data:blog.homepageUrl'><img expr:alt='data:title' expr:src='data:image' id='HeaderImage'/></a>
+                            <b:else/>
+                                <h1><a expr:href='data:blog.homepageUrl'><data:title/></a></h1>
+                            </b:if>
+                        </b:includable>
+                    </b:widget>
+                </b:section>
+            </div>
+
+            <div class='menu-toggle' id='mobile-trigger'>
+                <i class='fa-solid fa-bars'></i>
+            </div>
+
+            <nav class='nav-menu' id='navigation-bar'>
+                <b:section id='header-menu' maxwidgets='1' showaddelement='yes'>
+                    <b:widget id='LinkList1' locked='false' title='Header Navigation Menu' type='LinkList' version='2'>
+                        <b:includable id='main'>
+                            <ul>
+                                <b:loop values='data:links' var='link'>
+                                    <li><a expr:href='data:link.target'><data:link.name/></a></li>
+                                </b:loop>
+                                <!-- Integrated Search Toggle Item -->
+                                <li class='search-item-container'>
+                                    <button aria-label='Toggle Search' id='search-toggle-btn' type='button'>
+                                        <i class='fa-solid fa-magnifying-glass'></i>
+                                    </button>
+                                    <div class='search-expand-box' id='search-expand-box'>
+                                        <form expr:action='data:blog.homepageUrl + &quot;search&quot;' method='get'>
+                                            <input name='q' placeholder='Search articles...' required='required' type='text'/>
+                                            <button type='submit'><i class='fa-solid fa-arrow-right'></i></button>
+                                        </form>
+                                    </div>
+                                </li>
+                            </ul>
+                        </b:includable>
+                    </b:widget>
+                </b:section>
+            </nav>
+        </div>
+    </header>
+    <!-- ================= SECTION : HERO ================= -->
+    <b:if cond='data:blog.pageType == &quot;index&quot;'>
+        <section class='hero-wrapper'>
+            <div class='hero-container'>
+                <div class='hero-col'>
+                    <b:section id='hero-left' class='hero-column-widget' showaddelement='yes'>
+                        <b:widget id='Text105' locked='false' title='Hero Main Heading' type='Text' version='2'>
+                            <b:includable id='main'>
+                                <div class='widget-content'>
+                                    <b:if cond='data:content != &quot;&quot;'>
+                                        <data:content/>
+                                    <b:else/>
+                                        <h1>Connecting Strategy &amp; Innovation</h1>
+                                        <p>Welcome to your new dynamic hub. Customize this text block easily from your layout dashboard panel.</p>
+                                        <a href="" target="_blank"></a>
+                                    </b:if>
+                                </div>
+                            </b:includable>
+                        </b:widget>
+                    </b:section>
+                </div>
+                
+                <div class='hero-col'>
+                    <b:section id='hero-right' class='hero-column-widget' showaddelement='yes'>
+                        </b:section>
+                </div>
+            </div>
+        </section>
+    </b:if>
+
+    <!-- ================= SECTION : FEATURED POST ================= -->
+    <b:if cond='data:blog.url == data:blog.homepageUrl.canonical'>
+        <section class='featured-section-wrapper'>
+            <div class='featured-inner-container'>
+                <h2 class='featured-section-title'>Editor's Choice</h2>
+                
+                <b:section id='homepage-featured-slot' maxwidgets='1' showaddelement='yes'>
+                    <b:widget id='FeaturedPost1' locked='false' title='Featured Article' type='FeaturedPost' version='2'>
+                        <b:includable id='main'>
+                            <!-- Use a loop against the target action array to wake up Blogger's backend data feed -->
+                            <b:loop values='data:posts' var='post'>
+                                <div class='featured-flex-layout'>
+                                    
+                                    <!-- Left side: Post Graphic Thumbnail extracted from the active loop data post container -->
+                                    <b:if cond='data:post.featuredImage'>
+                                        <div class='featured-image-holder'>
+                                            <a expr:href='data:post.url'>
+                                                <img expr:alt='data:post.title' expr:src='data:post.featuredImage'/>
+                                            </a>
+                                        </div>
+                                    <b:else/>
+                                        <!-- Backup fallback check if post image fetch fails -->
+                                        <b:if cond='data:postFirstImage'>
+                                            <div class='featured-image-holder'>
+                                                <a expr:href='data:postUrl'>
+                                                    <img expr:alt='data:postTitle' expr:src='data:postFirstImage'/>
+                                                </a>
+                                            </div>
+                                        </b:if>
+                                    </b:if>
+                                    
+                                    <!-- Right side: Post Text Details Meta content pointing to active post data properties -->
+                                    <div class='featured-text-holder'>
+                                        <h3 class='featured-post-title'>
+                                            <a expr:href='data:post.url'><data:post.title/></a>
+                                        </h3>
+                                        <p class='featured-post-summary'>
+                                            <b:eval expr='data:post.snippet snippet {length: 180, links: false, linebreaks: false, paragraphs: false}'/>
+                                        </p>
+                                        <a class='featured-readmore-btn' expr:href='data:post.url'>
+                                            Read Full Article <i class='fa-solid fa-arrow-right'></i>
+                                        </a>
+                                    </div>
+                                    
+                                </div>
+                            </b:loop>
+                        </b:includable>
+                    </b:widget>
+                </b:section>
+                
+            </div>
+        </section>
+    </b:if>
+
+    <!-- ================= SECTION : CATEGORIES POST ================= -->
+    <b:if cond='data:blog.url == data:blog.homepageUrl.canonical'>
+        <section class='blog-categories'>
+            <div class='container'>
+
+                <div class='section-header'>
+                    <h2>Browse Topics</h2>
+                </div>
+
+                <b:section id='homepage-topics-bar' maxwidgets='1' showaddelement='yes'>
+                    <b:widget id='LinkList105' locked='false' title='Homepage Topics Grid' type='LinkList' version='2'>
+                        <b:includable id='main'>
+                            <div class='category-grid'>
+                                <b:loop values='data:links' var='link'>
+                                    <a expr:href='data:link.target' class='category-card'>
+                                        <b:if cond='data:link.name == &quot;WordPress Development&quot;'><i class='fas fa-code'></i></b:if>
+                                        <b:if cond='data:link.name == &quot;Website Security&quot;'><i class='fas fa-shield-alt'></i></b:if>
+                                        <b:if cond='data:link.name == &quot;Technical SEO&quot;'><i class='fas fa-search'></i></b:if>
+                                        <b:if cond='data:link.name == &quot;Plugins &amp; Themes&quot;'><i class='fas fa-plug'></i></b:if>
+                                        <b:if cond='data:link.name == &quot;Performance&quot;'><i class='fas fa-gauge-high'></i></b:if>
+                                        <b:if cond='data:link.name == &quot;Schema Markup&quot;'><i class='fas fa-sitemap'></i></b:if>
+                                        
+                                        <b:if cond='data:link.name != &quot;WordPress Development&quot; and data:link.name != &quot;Website Security&quot; and data:link.name != &quot;Technical SEO&quot; and data:link.name != &quot;Plugins &amp; Themes&quot; and data:link.name != &quot;Performance&quot; and data:link.name != &quot;Schema Markup&quot;'>
+                                            <i class='fas fa-folder'></i>
+                                        </b:if>
+                                        
+                                        <span><data:link.name/></span>
+                                    </a>
+                                </b:loop>
+                            </div>
+                        </b:includable>
+                    </b:widget>
+                </b:section>
+
+            </div>
+        </section>
+    </b:if>
+
+    <!-- ================= SECTION : LATEST POST ================= -->
+    <main class='main-wrapper' id="latest-posts">
+        <b:if cond='data:blog.pageType == &quot;index&quot;'>
+            <div class="latest-post-class">
+                <h2>Latest Posts</h2>
+            </div>
+            <div class='homepage-grid'>
+                <b:section id='main-blog-index' showaddelement='yes'>
+                    <b:widget id='Blog1' locked='true' title='Blog Posts Feed' type='Blog' version='2'>
+                        <b:includable id='main' var='this'>
+                            <b:loop values='data:posts' var='post'>
+                                <article class='post-card'>
+                                    <b:if cond='data:post.featuredImage'>
+                                        <a expr:href='data:post.url'><img class='post-thumb' expr:src='data:post.featuredImage'/></a>
+                                    </b:if>
+                                    <div class='post-details'>
+                                        <div class='post-meta'><data:post.date/> | By <data:post.author.name/></div>
+                                        <h2 class='post-title'><a expr:href='data:post.url'><data:post.title/></a></h2>
+                                        <p><b:eval expr='data:post.snippet snippet {length: 120, links: false, linebreaks: false, paragraphs: false}'/></p>
+                                    </div>
+                                </article>
+                            </b:loop>
+                        </b:includable>
+                    </b:widget>
+                </b:section>
+            </div>
+
+            <div class='pagination'>
+                <b:if cond='data:view.isMultipleItems'>
+                    <b:if cond='data:olderPageUrl'>
+                        <a class='newer-older-link older-link' expr:href='data:olderPageUrl' expr:title='data:messages.olderPosts'>
+                            <span>Older Posts</span> <i class='fa-solid fa-arrow-right'></i>
+                        </a>
+                    </b:if>
+
+                    <b:if cond='data:newerPageUrl'>
+                        <a class='newer-older-link newer-link' expr:href='data:newerPageUrl' expr:title='data:messages.newerPosts'>
+                            <i class='fa-solid fa-arrow-left'></i> <span>Newer Posts</span>
+                        </a>
+                    </b:if>
+                </b:if>
+            </div>
+
+        <b:else/>
+            <div class='inner-grid'>
+                <section class='content-area'>
+                    <b:section id='main-blog-post' showaddelement='yes'>
+                        <b:widget id='Blog2' locked='true' title='Post Display Engine' type='Blog' version='2'>
+                            <b:includable id='main' var='this'>
+                                <b:loop values='data:posts' var='post'>
+                                    <article class='post-card' style='padding: 30px;'>
+                                        <h1 class='post-title' style='font-size: 32px;'><data:post.title/></h1>
+                                        <div class='post-meta'><data:post.date/> | Written By <data:post.author.name/></div>
+                                        <hr style='border: 0; border-top: 1px solid var(--border-color); margin: 20px 0;'/>
+                                        
+                                        <div class='post-body entry-content'>
+                                            <data:post.body/>
+                                        </div>
+
+                                        <div class='post-share-buttons'>
+                                            <span class='share-title'>Share this post:</span>
+                                            <a expr:href='&quot;https://www.facebook.com/sharer/sharer.php?u=&quot; + data:post.url.canonical' target='_blank' title='Share on Facebook'>
+                                                <i class='fa-brands fa-facebook-f'></i>
+                                            </a>
+                                            <a expr:href='&quot;https://twitter.com/intent/tweet?url=&quot; + data:post.url.canonical + &quot;&amp;text=&quot; + data:post.title' target='_blank' title='Tweet this' class='xclass'>
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M357.2 48L427.8 48 273.6 224.2 455 464 313 464 201.7 318.6 74.5 464 3.8 464 168.7 275.5-5.2 48 140.4 48 240.9 180.9 357.2 48zM332.4 421.8l39.1 0-252.4-333.8-42 0 255.3 333.8z"/></svg>
+                                            </a>
+                                            <a expr:href='&quot;https://www.linkedin.com/shareArticle?mini=true&amp;url=&quot; + data:post.url.canonical' target='_blank' title='Share on LinkedIn'>
+                                                <i class='fa-brands fa-linkedin-in'></i>
+                                            </a>
+                                            <a expr:href='&quot;https://api.whatsapp.com/send?text=&quot; + data:post.title + &quot;%20&quot; + data:post.url.canonical' target='_blank' title='Share on WhatsApp'>
+                                                <i class='fa-brands fa-whatsapp'></i>
+                                            </a>
+                                        </div>
+
+                                        <b:if cond='data:blog.pageType == &quot;item&quot;'>
+                                            <div class='related-posts-wrapper'>
+                                                <h3>You Might Also Like</h3>
+                                                <b:if cond='data:post.labels'>
+                                                    <div id='related-posts-container' expr:data-label='data:post.labels.first.name' expr:data-max='&quot;3&quot;' expr:data-current-url='data:post.url.canonical'>
+                                                        <div class='related-loading'>Loading matching articles...</div>
+                                                    </div>
+                                                <b:else/>
+                                                    <p class='no-labels-meta'>No related categories tracked.</p>
+                                                </b:if>
+                                            </div>
+                                        </b:if>
+
+                                    </article>
+                                </b:loop>
+                            </b:includable>
+                        </b:widget>
+                    </b:section>
+                </section>
+
+                <aside class='sidebar-area'>
+                    <b:section id='sidebar-widgets' showaddelement='yes'>
+                        <b:widget id='Label1' locked='false' title='Categories' type='Label' version='2'>
+                            <b:includable id='main'>
+                                <h2><data:title/></h2>
+                                <div class='widget-content'>
+                                    <ul>
+                                        <b:loop values='data:labels' var='label'>
+                                            <li><a expr:href='data:label.url'><data:label.name/></a> (<data:label.count/>)</li>
+                                        </b:loop>
+                                    </ul>
+                                </div>
+                            </b:includable>
+                        </b:widget>
+                        <b:widget id='PopularPosts1' locked='false' title='Trending Posts' type='PopularPosts' version='2'>
+                            <b:includable id='main'>
+                                <h2><data:title/></h2>
+                                <div class='widget-content'>
+                                    <ul>
+                                        <b:loop values='data:posts' var='post'>
+                                            <li style='margin-bottom: 10px;'><a expr:href='data:post.url'><data:post.title/></a></li>
+                                        </b:loop>
+                                    </ul>
+                                </div>
+                            </b:includable>
+                        </b:widget>
+                    </b:section>
+                </aside>
+            </div>
+        </b:if>
+    </main>
+
+    <!-- Conditional Blocks: Only Render on Page 1 of True Homepage Index -->
+    <b:if cond='data:blog.url == data:blog.homepageUrl.canonical'>
+        
+        <!-- ================= SECTION 1: POPULAR RESOURCES ================= -->
+        <section class='popular-resources'>
+            <div class='container'>
+                <div class='section-header'>
+                    <h2>Popular Resources</h2>
+                </div>
+
+                <b:section id='homepage-resources-bar' maxwidgets='1' showaddelement='yes'>
+                    <b:widget id='LinkList106' locked='false' title='Popular Resources Links' type='LinkList' version='2'>
+                        <b:includable id='main'>
+                            <div class='resource-grid'>
+                                <b:loop values='data:links' var='link'>
+                                    <a expr:href='data:link.target' class='resource-card'>
+                                        <span class='resource-text'><data:link.name/></span>
+                                        <i class='fa-solid fa-arrow-up-right-from-square resource-icon'></i>
+                                    </a>
+                                </b:loop>
+                            </div>
+                        </b:includable>
+                    </b:widget>
+                </b:section>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 2: BLOG CTA CALLOUT ================= -->
+        <section class='blog-cta'>
+            <div class='container'>
+                <b:section id='homepage-cta-zone' maxwidgets='1' showaddelement='yes'>
+                    <b:widget id='Text106' locked='false' title='Homepage Newsletter CTA' type='Text' version='2'>
+                        <b:includable id='main'>
+                            <div class='cta-box'>
+                                <!-- Standard Fallback Setup if text field is empty in layout screen -->
+                                <b:if cond='data:content and data:content != &quot;&quot; and data:content != &quot; &quot;'>
+                                    <b:eval expr='data:content text'/>
+                                <b:else/>
+                                    <h2>Stay Updated</h2>
+                                    <p>Get practical WordPress, security, and technical SEO insights delivered as new resources are published.</p>
+                                    <a class='btn btn-primary cta-action-btn' href='/p/contact.html'>Join Our Newsletter</a>
+                                </b:if>
+                            </div>
+                        </b:includable>
+                    </b:widget>
+                </b:section>
+            </div>
+        </section>
+
+    </b:if>
+
+    <!-- ================= SECTION : FOOTER ================= -->
+    <footer>
+        <div class='top-footer'>
+            <div class='footer-columns-container'>
+                
+                <div class='footer-col'>
+                    <b:section id='footer-col-1' class='footer-widgets' showaddelement='yes'>
+                        <b:widget id='Text101' locked='false' title='About Our Hub' type='Text' version='2'>
+                            <b:includable id='main'>
+                                <b:if cond='data:title != &quot;&quot;'>
+                                    <h2><data:title/></h2>
+                                </b:if>
+                                <div class='widget-content'>
+                                    <data:content/>
+                                </div>
+                            </b:includable>
+                        </b:widget>
+                    </b:section>
+                </div>
+
+                <div class='footer-col'>
+                    <b:section id='footer-col-2' class='footer-widgets' showaddelement='yes'>
+                        </b:section>
+                </div>
+
+                <div class='footer-col'>
+                    <b:section id='footer-col-3' class='footer-widgets' showaddelement='yes'>
+                        </b:section>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="credit-footer">
+            <div class='credit-text'>
+                <b:section id='footer-attribution' maxwidgets='1' showaddelement='yes'>
+                    <b:widget id='Text102' locked='false' title='Footer Attribution' type='Text' version='2'>
+                        <b:includable id='main'>
+                            <div class='widget-content'>
+                                <b:if cond='data:content != &quot;&quot;'>
+                                    <p><b:eval expr='data:content text '/></p>
+                                <b:else/>
+                                    <p>&amp;copy; <span id='year-container'></span> <data:blog.title/>. Powered by Blogger.</p>
+                                </b:if>
+                            </div>
+                        </b:includable>
+                    </b:widget>
+                </b:section>
+            </div>
+            <div class='footer-social'>
+                <b:section id='footer-social-links' maxwidgets='1' showaddelement='yes'>
+                    <b:widget id='LinkList2' locked='false' title='Social Profile Links' type='LinkList' version='2'>
+                        <b:includable id='main'>
+                            <b:loop values='data:links' var='link'>
+                                <a expr:href='data:link.target' expr:title='data:link.name' target='_blank'>
+                                    <b:if cond='data:link.name == &quot;Facebook&quot;'><i class='fa-brands fa-facebook-f'></i></b:if>
+                                    <b:if cond='data:link.name == &quot;Twitter&quot;'><i class='fa-brands fa-x-twitter'></i></b:if>
+                                    <b:if cond='data:link.name == &quot;LinkedIn&quot;'><i class='fa-brands fa-linkedin-in'></i></b:if>
+                                    <b:if cond='data:link.name == &quot;Instagram&quot;'><i class='fa-brands fa-instagram'></i></b:if>
+                                    <b:if cond='data:link.name == &quot;YouTube&quot;'><i class='fa-brands fa-youtube'></i></b:if>
+                                </a>
+                            </b:loop>
+                        </b:includable>
+                    </b:widget>
+                </b:section>
+            </div>
+        </div>
+    </footer>
+
+    <script type='text/javascript'>
+        //<![CDATA[
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // 1. Mobile Menu Toggle Logic
+            var trigger = document.getElementById('mobile-trigger');
+            var nav = document.getElementById('navigation-bar');
+            
+            if (trigger && nav) {
+                trigger.addEventListener('click', function() {
+                    nav.classList.toggle('active');
+                });
+            }
+
+            // 2. Dynamic Footer Year Generator
+            var yearContainer = document.getElementById('year-container');
+            if (yearContainer) {
+                yearContainer.textContent = new Date().getFullYear();
+            }
+
+            // 3. Search Box Toggle Engine Handler (Moved Inside DOMContentLoaded)
+            var searchBtn = document.getElementById('search-toggle-btn');
+            var searchBox = document.getElementById('search-expand-box');
+
+            if (searchBtn && searchBox) {
+                searchBtn.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevents immediate closing from document click
+                    searchBox.classList.toggle('open');
+                });
+
+                // Auto-close search box if user clicks anywhere else on the screen
+                document.addEventListener('click', function(e) {
+                    if (!searchBox.contains(e.target) && e.target !== searchBtn) {
+                        searchBox.classList.remove('open');
+                    }
+                });
+            }
+
+        });
+        //]]>
+    </script>
+
+</body>
+</html>
