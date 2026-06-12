@@ -339,4 +339,4 @@ Graceful degradation for older browsers:
 
 ---
 
-**Version**: 1.0.3 — Built for Business Bridge Hub.
+**Version**: 1.0.4 — Built for Business Bridge Hub.
