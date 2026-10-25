@@ -193,7 +193,7 @@
             .widget-content li a { box-shadow: none; }
             
             /* Homepage Grid */
-            .widget.Blog {
+            #Blog1 {
                 display: grid;
                 grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
                 gap: 25px;
@@ -802,7 +802,7 @@
                 .nav-menu ul { flex-direction: column; gap: 15px; }
                 .hero-wrapper { padding: 40px 20px; }
                 .hero-container { flex-direction: column; text-align: center; gap: 35px; }
-                .widget.Blog { grid-template-columns: 1fr; }
+                #Blog1 { grid-template-columns: 1fr; }
                 .main-wrapper, .popular-resources, .blog-categories, .featured-section-wrapper, .hero-wrapper, .blog-cta {padding: 60px 20px; }
                 .related-grid { grid-template-columns: 1fr; gap: 15px; }
                 .search-item-container { width: 100%; margin-top: 10px; flex-direction: column; align-items: flex-start; }
