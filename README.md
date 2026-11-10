@@ -338,5 +338,8 @@ Graceful degradation for older browsers:
 - No JavaScript errors in browsers without ES6 support (older fallbacks pass through silently)
 
 ---
-
-**Version**: 1.0.4 — Built for Business Bridge Hub.
+**Version**: 1.0.1 — Initial release. Built for Business Bridge Hub.
+**Version**: 1.0.2 — Update css and add new features.
+**Version**: 1.0.3 — Update minor css issues.
+**Version**: 1.0.4 — Update and fix page and post css.
+**Version**: 1.0.5 — Update accessibility.

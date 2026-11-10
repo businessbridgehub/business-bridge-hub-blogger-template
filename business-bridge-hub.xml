@@ -4,7 +4,7 @@
   Author: Business Bridge Hub
   Author URI: https://businessbridgehub.com/
   Developer: Jahid Shah
-  Version: 1.0.4
+  Version: 1.0.5
   Description: A production-grade, fully responsive Blogger XML theme for Business Bridge Hub. SaaS-style UI, widget-driven architecture, PageSpeed 95+ performance, full SEO optimization, and mobile-first touch-optimized UX. Zero external dependencies, inline CSS, off-canvas nav, card-based blog grid, modular sidebar, and comprehensive footer.
   License: MIT
   Copyright: © 2026 Business Bridge Hub. All rights reserved.
@@ -13,7 +13,7 @@
 <html b:css='false' b:defaultwidgetversion='2' b:layoutsversion='3' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale.language' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
     <head>
         <meta charset='utf-8'/>
-        <meta content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1' name='viewport'/>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
         <!-- SEO-Optimized Title Tag Handler -->
         <b:if cond='data:blog.pageType == &quot;item&quot;'>
             <title><data:blog.pageName/> | <data:blog.title/></title>
@@ -1034,7 +1034,9 @@
                                 <b:loop values='data:posts' var='post'>
                                     <article class='post-card'>
                                         <b:if cond='data:post.featuredImage'>
-                                            <a expr:href='data:post.url'><img class='post-thumb' expr:src='data:post.featuredImage'/></a>
+                                            <a expr:href='data:post.url'>
+                                                <img class='post-thumb' expr:src='data:post.featuredImage' expr:alt='data:post.title'/>
+                                            </a>
                                         </b:if>
                                         <div class='post-details'>
                                             <div class='post-meta'><data:post.date/> | By <strong><data:post.author.name/></strong></div>
